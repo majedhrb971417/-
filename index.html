@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>فليت بلس - عرض أسعار إدارة الأسطول الذكي</title>
+    <title>تقرير مقارنة عروض إدارة الأسطول - دار السلال</title>
     <style>
         * {
             margin: 0;
@@ -14,27 +14,24 @@
         body {
             font-family: 'Segoe UI', Tahoma, sans-serif;
             background: #f0f4f8;
-            padding: 20px;
+            padding: 25px 20px;
             direction: rtl;
             color: #1e293b;
         }
 
         .container {
-            max-width: 1100px;
+            max-width: 1200px;
             margin: auto;
         }
 
         /* ===== الهيدر ===== */
         .header {
-            background: linear-gradient(135deg, #0c4a6e, #0f172a);
+            background: linear-gradient(135deg, #0f172a, #1e293b);
             padding: 35px 40px;
             border-radius: 20px;
             margin-bottom: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            box-shadow: 0 10px 40px rgba(12, 74, 110, 0.35);
+            box-shadow: 0 10px 40px rgba(15, 23, 42, 0.3);
+            text-align: center;
         }
 
         .header h1 {
@@ -44,75 +41,79 @@
         }
 
         .header h1 span {
-            color: #67e8f9;
+            color: #fcd34d;
         }
 
-        .header .subtitle {
+        .header .sub {
             color: #94a3b8;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.95rem;
+            margin-top: 6px;
         }
 
-        .header .badge-date {
-            background: rgba(255,255,255,0.1);
-            padding: 8px 20px;
+        .header .company-name {
+            display: inline-block;
+            background: rgba(252, 211, 77, 0.15);
+            color: #fcd34d;
+            padding: 6px 24px;
             border-radius: 30px;
-            color: #cbd5e1;
-            font-weight: 600;
-            font-size: 0.85rem;
-            border: 1px solid rgba(255,255,255,0.08);
+            font-weight: 800;
+            font-size: 1rem;
+            margin-top: 8px;
+            border: 1px solid rgba(252, 211, 77, 0.2);
         }
 
-        /* ===== بطاقات الإحصائيات السريعة ===== */
-        .stats-grid {
+        /* ===== قسم احتياجات الشركة ===== */
+        .needs-section {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 16px;
+            padding: 22px 28px;
+            margin-bottom: 25px;
+            border-right: 6px solid #d97706;
+        }
+
+        .needs-section h2 {
+            color: #78350f;
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .needs-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 16px;
-            margin-bottom: 25px;
+            gap: 12px;
         }
 
-        .stat-card {
-            background: #ffffff;
-            padding: 18px 20px;
-            border-radius: 16px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-            border: 1px solid #e2e8f0;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .stat-card .number {
-            font-size: 2.4rem;
-            font-weight: 900;
-            display: block;
-        }
-
-        .stat-card .label {
-            font-size: 0.75rem;
+        .need-item {
+            background: rgba(255,255,255,0.6);
+            padding: 10px 14px;
+            border-radius: 10px;
             font-weight: 700;
-            color: #64748b;
-            margin-top: 2px;
+            font-size: 0.85rem;
+            color: #78350f;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
-        .stat-card .icon {
-            font-size: 1.8rem;
-            display: block;
-            margin-bottom: 4px;
+        .need-item .icon {
+            font-size: 1.2rem;
         }
 
-        .stat-card.blue .number { color: #2563eb; }
-        .stat-card.green .number { color: #16a34a; }
-        .stat-card.orange .number { color: #ea580c; }
-        .stat-card.purple .number { color: #7c3aed; }
-        .stat-card.teal .number { color: #0d9488; }
-        .stat-card.rose .number { color: #e11d48; }
+        /* ===== شركات المقارنة ===== */
+        .comparison-title {
+            font-size: 1.4rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-        /* ===== المحتوى الرئيسي ===== */
-        .content-grid {
+        .comparison-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
@@ -120,104 +121,160 @@
         }
 
         @media (max-width: 768px) {
-            .content-grid {
+            .comparison-grid {
                 grid-template-columns: 1fr;
             }
         }
 
-        .card {
+        .company-card {
             background: #ffffff;
             border-radius: 16px;
             padding: 22px 24px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.04);
-            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+            border: 2px solid #e2e8f0;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .card h3 {
-            font-size: 1.05rem;
+        .company-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+
+        .company-card .badge {
+            position: absolute;
+            top: -10px;
+            right: 20px;
+            padding: 4px 16px;
+            border-radius: 20px;
+            font-size: 0.65rem;
             font-weight: 800;
-            margin-bottom: 14px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f1f5f9;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .card h3 .emoji {
-            font-size: 1.3rem;
+        .company-card .badge.gold {
+            background: #fcd34d;
+            color: #78350f;
         }
 
-        /* ===== قائمة الخدمات ===== */
-        .service-item {
+        .company-card .badge.blue {
+            background: #93c5fd;
+            color: #1e3a5f;
+        }
+
+        .company-card .badge.green {
+            background: #86efac;
+            color: #14532d;
+        }
+
+        .company-card .badge.purple {
+            background: #c4b5fd;
+            color: #4c1d95;
+        }
+
+        .company-card .company-logo {
+            font-size: 1.6rem;
+            font-weight: 900;
+            margin-top: 6px;
+        }
+
+        .company-card .company-logo small {
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #64748b;
+        }
+
+        .company-card .price-tag {
+            background: #f1f5f9;
+            padding: 10px 16px;
+            border-radius: 12px;
+            margin: 12px 0;
+            text-align: center;
+        }
+
+        .company-card .price-tag .amount {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #0f172a;
+        }
+
+        .company-card .price-tag .label {
+            font-size: 0.7rem;
+            color: #64748b;
+            font-weight: 600;
+        }
+
+        .company-card .features {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        .company-card .features li {
+            padding: 5px 0;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #334155;
             display: flex;
-            justify-content: space-between;
             align-items: center;
-            padding: 8px 0;
+            gap: 8px;
             border-bottom: 1px dashed #f1f5f9;
         }
 
-        .service-item:last-child {
+        .company-card .features li:last-child {
             border-bottom: none;
         }
 
-        .service-item .name {
-            font-weight: 700;
-            font-size: 0.9rem;
-        }
-
-        .service-item .check {
+        .company-card .features li .check {
             color: #16a34a;
             font-weight: 900;
-            font-size: 1.1rem;
         }
 
-        /* ===== شريط النسبة ===== */
-        .rate-bar-wrap {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin: 6px 0;
+        .company-card .features li .cross {
+            color: #ef4444;
+            font-weight: 900;
         }
 
-        .rate-bar-track {
-            flex: 1;
-            height: 10px;
-            background: #e2e8f0;
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .rate-bar-fill {
-            height: 100%;
-            border-radius: 10px;
-            transition: width 1s ease;
-        }
-
-        .rate-bar-fill.high { background: linear-gradient(90deg, #22c55e, #16a34a); }
-        .rate-bar-fill.medium { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
-        .rate-bar-fill.low { background: linear-gradient(90deg, #f87171, #ef4444); }
-        .rate-bar-fill.full { background: linear-gradient(90deg, #60a5fa, #2563eb); }
-
-        .rate-text {
+        .tag {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.6rem;
             font-weight: 800;
-            font-size: 0.85rem;
-            min-width: 45px;
-            text-align: left;
         }
 
-        /* ===== جدول الأسعار ===== */
-        .price-table {
+        .tag.yes { background: #dcfce7; color: #166534; }
+        .tag.no { background: #fee2e2; color: #991b1b; }
+        .tag.gold { background: #fef3c7; color: #92400e; }
+
+        /* ===== جدول المقارنة السريع ===== */
+        .quick-compare {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 25px;
+            border: 1px solid #e2e8f0;
+            overflow-x: auto;
+        }
+
+        .quick-compare h3 {
+            font-size: 1.1rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .compare-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
 
-        .price-table thead {
+        .compare-table thead {
             background: #f1f5f9;
         }
 
-        .price-table th {
+        .compare-table th {
             padding: 10px 12px;
             text-align: right;
             font-weight: 800;
@@ -226,405 +283,407 @@
             text-transform: uppercase;
         }
 
-        .price-table td {
+        .compare-table td {
             padding: 9px 12px;
             border-bottom: 1px solid #f1f5f9;
+            font-weight: 600;
         }
 
-        .price-table .total-row {
-            background: #f8fafc;
+        .compare-table .highlight {
+            background: #fef3c7;
+        }
+
+        .compare-table .winner {
+            background: #dcfce7;
+            font-weight: 900;
+        }
+
+        /* ===== التوصية النهائية ===== */
+        .recommendation {
+            background: linear-gradient(135deg, #0f172a, #1e293b);
+            border-radius: 16px;
+            padding: 28px 32px;
+            margin-top: 20px;
+            border-right: 6px solid #fcd34d;
+        }
+
+        .recommendation h2 {
+            color: #fcd34d;
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+        }
+
+        .recommendation .rec-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .recommendation .rec-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .recommendation .rec-item {
+            background: rgba(255,255,255,0.06);
+            padding: 16px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .recommendation .rec-item .title {
+            color: #fcd34d;
             font-weight: 800;
-            border-top: 2px solid #e2e8f0;
+            font-size: 0.95rem;
         }
 
-        .price-table .total-row td {
-            padding: 12px;
+        .recommendation .rec-item .desc {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-top: 4px;
+            line-height: 1.6;
         }
 
-        .tag {
-            display: inline-block;
-            padding: 2px 12px;
-            border-radius: 20px;
-            font-size: 0.65rem;
+        .recommendation .rec-item .highlight-text {
+            color: #67e8f9;
             font-weight: 700;
         }
 
-        .tag.green { background: #dcfce7; color: #166534; }
-        .tag.blue { background: #dbeafe; color: #1e40af; }
-        .tag.orange { background: #fef3c7; color: #92400e; }
-        .tag.purple { background: #ede9fe; color: #5b21b6; }
-        .tag.rose { background: #fce7f3; color: #9d174d; }
-
-        /* ===== قائمة المميزات ===== */
-        .feature-list {
-            list-style: none;
-            padding: 0;
+        .recommendation .final-verdict {
+            margin-top: 16px;
+            background: rgba(252, 211, 77, 0.1);
+            padding: 14px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(252, 211, 77, 0.15);
+            text-align: center;
         }
 
-        .feature-list li {
-            padding: 7px 0;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .feature-list li:last-child {
-            border-bottom: none;
-        }
-
-        .feature-list li .icon {
-            font-size: 1.1rem;
-        }
-
-        /* ===== قسم التوصيات ===== */
-        .recommend-box {
-            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
-            border-radius: 16px;
-            padding: 20px 24px;
-            border-right: 5px solid #16a34a;
-            margin-top: 20px;
-        }
-
-        .recommend-box h4 {
-            color: #065f46;
+        .recommendation .final-verdict p {
+            color: #e2e8f0;
             font-size: 1rem;
-            font-weight: 800;
-            margin-bottom: 6px;
+            font-weight: 700;
         }
 
-        .recommend-box p {
-            color: #065f46;
-            font-size: 0.9rem;
-            font-weight: 600;
-            line-height: 1.7;
+        .recommendation .final-verdict .big {
+            color: #fcd34d;
+            font-size: 1.3rem;
         }
 
         /* ===== الفوتر ===== */
         .footer {
-            background: #0f172a;
-            padding: 20px 30px;
-            border-radius: 16px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-top: 20px;
-        }
-
-        .footer .contact {
-            color: #94a3b8;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .footer .contact strong {
-            color: #ffffff;
-        }
-
-        .footer .phone {
-            color: #67e8f9;
-            font-size: 1.2rem;
-            font-weight: 900;
-        }
-
-        /* ===== تذييل الصفحة ===== */
-        .watermark {
             text-align: center;
             color: #94a3b8;
             font-size: 0.7rem;
-            margin-top: 15px;
+            margin-top: 25px;
             font-weight: 600;
+            padding: 15px;
+            border-top: 1px solid #e2e8f0;
         }
 
-        /* أنيميشن بسيط */
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .card {
-            animation: fadeInUp 0.6s ease forwards;
+        .company-card {
+            animation: fadeInUp 0.5s ease forwards;
         }
 
-        .card:nth-child(2) { animation-delay: 0.1s; }
-        .stats-grid .stat-card:nth-child(1) { animation-delay: 0.05s; }
-        .stats-grid .stat-card:nth-child(2) { animation-delay: 0.1s; }
-        .stats-grid .stat-card:nth-child(3) { animation-delay: 0.15s; }
-        .stats-grid .stat-card:nth-child(4) { animation-delay: 0.2s; }
-        .stats-grid .stat-card:nth-child(5) { animation-delay: 0.25s; }
+        .company-card:nth-child(2) { animation-delay: 0.1s; }
+        .company-card:nth-child(3) { animation-delay: 0.2s; }
+        .company-card:nth-child(4) { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
 
 <div class="container">
 
-    <!-- ===== HEADER ===== -->
+    <!-- ===== الهيدر ===== -->
     <div class="header">
-        <div>
-            <h1>⚡ فليت <span>بلس</span></h1>
-            <div class="subtitle">نظام إدارة أسطول ذكي | Fleet Management Solution</div>
-        </div>
-        <div class="badge-date">📅 15 يوليو 2026</div>
+        <h1>📊 تقرير المقارنة <span>التنافسية</span></h1>
+        <div class="sub">تقييم عروض إدارة وتتبع أسطول المركبات</div>
+        <div class="company-name">🏭 شركة مصنع دار السلال للحلويات المحدودة</div>
+        <div style="color: #64748b; font-size: 0.8rem; margin-top: 6px;">📅 15 يوليو 2026 | 🚛 أسطول: 20 مركبة</div>
     </div>
 
-    <!-- ===== إحصائيات سريعة ===== -->
-    <div class="stats-grid">
-        <div class="stat-card blue">
-            <span class="icon">🚛</span>
-            <span class="number">20</span>
-            <span class="label">مركبة في الأسطول</span>
-        </div>
-        <div class="stat-card green">
-            <span class="icon">📍</span>
-            <span class="number">5,000+</span>
-            <span class="label">مركز خدمة بالمملكة</span>
-        </div>
-        <div class="stat-card orange">
-            <span class="icon">💰</span>
-            <span class="number">20%</span>
-            <span class="label">توفير في المصروفات</span>
-        </div>
-        <div class="stat-card purple">
-            <span class="icon">🛡️</span>
-            <span class="number">100%</span>
-            <span class="label">حماية من التلاعب</span>
-        </div>
-        <div class="stat-card teal">
-            <span class="icon">📊</span>
-            <span class="number">24/7</span>
-            <span class="label">تقارير لحظية</span>
+    <!-- ===== احتياجات الشركة ===== -->
+    <div class="needs-section">
+        <h2>🎯 احتياجات شركة دار السلال</h2>
+        <div class="needs-grid">
+            <div class="need-item"><span class="icon">📋</span> الالتزام بمنصة "وصل" الحكومية</div>
+            <div class="need-item"><span class="icon">🧊</span> مراقبة حرارة ورطوبة شحنات الحلويات</div>
+            <div class="need-item"><span class="icon">💰</span> خفض مصاريف الوقود والصيانة</div>
+            <div class="need-item"><span class="icon">🛡️</span> منع التلاعب بالفواتير</div>
+            <div class="need-item"><span class="icon">📊</span> تقارير دقيقة لكل مركبة</div>
+            <div class="need-item"><span class="icon">🔄</span> تكامل مع الأنظمة الحالية</div>
+            <div class="need-item"><span class="icon">⏱️</span> سهولة الاستخدام والتدريب</div>
+            <div class="need-item"><span class="icon">🏷️</span> تغطية جميع مناطق المملكة</div>
         </div>
     </div>
 
-    <!-- ===== المحتوى ===== -->
-    <div class="content-grid">
+    <!-- ===== عنوان المقارنة ===== -->
+    <div class="comparison-title">
+        🏢 مقارنة العروض المقدمة
+        <span style="font-size: 0.7rem; background: #e2e8f0; padding: 2px 14px; border-radius: 20px; color: #475569;">4 عروض</span>
+    </div>
 
-        <!-- الخدمات -->
-        <div class="card">
-            <h3><span class="emoji">🛠️</span> خدماتنا المتكاملة</h3>
+    <!-- ===== بطاقات الشركات ===== -->
+    <div class="comparison-grid">
 
-            <div class="service-item">
-                <span class="name">⛽ تعبئة وقود (محطات معتمدة)</span>
-                <span class="check">✓</span>
-            </div>
-            <div class="service-item">
-                <span class="name">🔧 تغيير زيوت (جميع الأنواع)</span>
-                <span class="check">✓</span>
-            </div>
-            <div class="service-item">
-                <span class="name">🛞 إطارات (ماركات عالمية)</span>
-                <span class="check">✓</span>
-            </div>
-            <div class="service-item">
-                <span class="name">🔋 بطاريات (AcDelco وغيرها)</span>
-                <span class="check">✓</span>
-            </div>
-            <div class="service-item">
-                <span class="name">🧼 غسيل سيارات</span>
-                <span class="check">✓</span>
-            </div>
-            <div class="service-item">
-                <span class="name">🆘 سطحات إنقاذ (طوال اليوم)</span>
-                <span class="check">✓</span>
-            </div>
-            <div class="service-item">
-                <span class="name">🔩 صيانة خفيفة</span>
-                <span class="check">✓</span>
+        <!-- 1. تطور العالمية -->
+        <div class="company-card">
+            <span class="badge gold">⭐ العرض الأكثر شمولاً</span>
+            <div class="company-logo">
+                🌐 تطور العالمية <small>TMT GPS</small>
             </div>
 
-            <div style="margin-top: 12px; background: #f1f5f9; padding: 10px; border-radius: 10px; text-align: center; font-weight: 700; font-size: 0.8rem; color: #334155;">
-                📍 أكثر من 5,000 مركز خدمة في جميع مناطق المملكة
+            <div class="price-tag">
+                <div class="amount">13,823 <span style="font-size: 1rem;">ريال</span></div>
+                <div class="label">السنة الأولى (شامل الضريبة)</div>
             </div>
-        </div>
 
-        <!-- المميزات -->
-        <div class="card">
-            <h3><span class="emoji">⭐</span> مميزات النظام</h3>
-
-            <ul class="feature-list">
-                <li><span class="icon">📱</span> شرائح NFC ذكية تتحكم في الصرفية</li>
-                <li><span class="icon">🛡️</span> منع التلاعب بالفواتير والغش</li>
-                <li><span class="icon">📊</span> تقارير استهلاك لكل مركبة</li>
-                <li><span class="icon">📈</span> تقرير تغيير الزيت وتاريخ الضمان</li>
-                <li><span class="icon">📋</span> تنظيم الفواتير الضريبية إلكترونياً</li>
-                <li><span class="icon">👤</span> رقابة ومتابعة على السائقين</li>
-                <li><span class="icon">🏢</span> محفظة إلكترونية لكل فرع</li>
-                <li><span class="icon">📉</span> توفير يصل إلى 20% من الميزانية</li>
+            <ul class="features">
+                <li><span class="check">✅</span> أجهزة تتبع 4G أوروبية (20 جهاز)</li>
+                <li><span class="check">✅</span> ربط مع منصة "وصل" الحكومية</li>
+                <li><span class="check">✅</span> حساسات حرارة ورطوبة (اختياري)</li>
+                <li><span class="check">✅</span> ضمان 24 شهراً (استبدال)</li>
+                <li><span class="check">✅</span> صيانة مجانية طوال الاشتراك</li>
+                <li><span class="check">✅</span> تدريب مجاني للفريق</li>
+                <li><span class="check">✅</span> دعم فني 24/7</li>
+                <li><span class="check">✅</span> مرخص من هيئة الاتصالات</li>
+                <li><span style="color: #f59e0b;">⭐</span> <strong>معتمد من وزارة البلديات</strong></li>
             </ul>
 
-            <div style="margin-top: 12px; display: flex; gap: 8px; flex-wrap: wrap;">
-                <span class="tag green">✓ معتمد</span>
-                <span class="tag blue">✓ آمن</span>
-                <span class="tag orange">✓ موفر</span>
-                <span class="tag purple">✓ ذكي</span>
+            <div style="margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
+                <span class="tag yes">✓ ربط حكومي</span>
+                <span class="tag yes">✓ تتبع متقدم</span>
+                <span class="tag yes">✓ ضمان طويل</span>
             </div>
         </div>
+
+        <!-- 2. كفرات بلس / فليت بلس -->
+        <div class="company-card" style="border-color: #22c55e; border-width: 3px;">
+            <span class="badge green">🏆 الأفضل للتشغيل والتوفير</span>
+            <div class="company-logo">
+                ⚡ فليت بلس <small>FleetPlus</small>
+            </div>
+
+            <div class="price-tag" style="background: #dcfce7;">
+                <div class="amount" style="color: #16a34a;">0 <span style="font-size: 1rem;">ريال</span></div>
+                <div class="label">رسوم تأسيس - الدفع حسب الاستهلاك</div>
+            </div>
+
+            <ul class="features">
+                <li><span class="check">✅</span> شرائح NFC ذكية للتحكم بالوقود</li>
+                <li><span class="check">✅</span> منع التلاعب بالفواتير نهائياً</li>
+                <li><span class="check">✅</span> توفير 20% من ميزانية التشغيل</li>
+                <li><span class="check">✅</span> 5,000+ مركز خدمة بالمملكة</li>
+                <li><span class="check">✅</span> تغيير زيوت - إطارات - بطاريات</li>
+                <li><span class="check">✅</span> سطحات إنقاذ 24/7</li>
+                <li><span class="check">✅</span> محفظة رقمية لكل سائق</li>
+                <li><span class="check">✅</span> تقارير استهلاك لكل مركبة</li>
+                <li><span style="color: #16a34a;">💰</span> <strong>توفير مباشر وفوري</strong></li>
+            </ul>
+
+            <div style="margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
+                <span class="tag yes">✓ لا رسوم تأسيس</span>
+                <span class="tag yes">✓ توفير 20%</span>
+                <span class="tag yes">✓ أكبر شبكة</span>
+            </div>
+        </div>
+
+        <!-- 3. DSCO / أنظمة الأبعاد -->
+        <div class="company-card">
+            <span class="badge blue">🧊 الأفضل للتبريد</span>
+            <div class="company-logo">
+                📡 أنظمة الأبعاد <small>DSCO</small>
+            </div>
+
+            <div class="price-tag">
+                <div class="amount" style="color: #2563eb;">~15,000+ <span style="font-size: 1rem;">ريال</span></div>
+                <div class="label">السنة الأولى (تقديري)</div>
+            </div>
+
+            <ul class="features">
+                <li><span class="check">✅</span> أجهزة تتبع ذكية متطورة</li>
+                <li><span class="check">✅</span> حساسات حرارة ورطوبة دقيقة</li>
+                <li><span class="check">✅</span> ربط مع منصة "وصل"</li>
+                <li><span class="check">✅</span> حساسات وزن للشاحنات</li>
+                <li><span class="check">✅</span> تقنية IoT متقدمة</li>
+                <li><span class="check">✅</span> مرخص من هيئة الغذاء والدواء</li>
+                <li><span style="color: #2563eb;">🧊</span> <strong>مثالي لشحنات الحلويات المبردة</strong></li>
+            </ul>
+
+            <div style="margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
+                <span class="tag yes">✓ تبريد دقيق</span>
+                <span class="tag yes">✓ ربط حكومي</span>
+                <span class="tag yes">✓ حساسات وزن</span>
+            </div>
+        </div>
+
+        <!-- 4. تواصل الدولية -->
+        <div class="company-card">
+            <span class="badge purple">⚖️ الأفضل للوزن والحمولات</span>
+            <div class="company-logo">
+                📡 تواصل الدولية <small>TawasulIntel</small>
+            </div>
+
+            <div class="price-tag">
+                <div class="amount" style="color: #7c3aed;">~12,000+ <span style="font-size: 1rem;">ريال</span></div>
+                <div class="label">السنة الأولى (تقديري)</div>
+            </div>
+
+            <ul class="features">
+                <li><span class="check">✅</span> أجهزة تتبع 4G</li>
+                <li><span class="check">✅</span> حساسات وزن محورية</li>
+                <li><span class="check">✅</span> ربط مع منصة "وصل"</li>
+                <li><span class="check">✅</span> ضمان سنتين على الأجهزة</li>
+                <li><span class="cross">❌</span> لا يوجد حساسات حرارة أساسية</li>
+                <li><span class="cross">❌</span> دعم فني محدود</li>
+                <li><span style="color: #7c3aed;">⚖️</span> <strong>منع مخالفات الوزن الزائد</strong></li>
+            </ul>
+
+            <div style="margin-top: 10px; display: flex; gap: 6px; flex-wrap: wrap;">
+                <span class="tag yes">✓ حساسات وزن</span>
+                <span class="tag no">✗ لا تبريد</span>
+                <span class="tag yes">✓ ربط حكومي</span>
+            </div>
+        </div>
+
     </div>
 
-    <!-- ===== عرض الأسعار ===== -->
-    <div class="card" style="margin-bottom: 20px;">
-        <h3><span class="emoji">💰</span> عرض الأسعار - أسطول 20 مركبة</h3>
-
-        <table class="price-table">
+    <!-- ===== جدول المقارنة السريع ===== -->
+    <div class="quick-compare">
+        <h3>📊 جدول المقارنة السريع</h3>
+        <table class="compare-table">
             <thead>
                 <tr>
-                    <th>الخدمة</th>
-                    <th>الكمية</th>
-                    <th>سعر الوحدة</th>
-                    <th>الإجمالي</th>
+                    <th>الميزة</th>
+                    <th>تطور العالمية</th>
+                    <th>فليت بلس</th>
+                    <th>أنظمة الأبعاد</th>
+                    <th>تواصل الدولية</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>📱 شرائح NFC ذكية (تركيب)</td>
-                    <td>20</td>
-                    <td>0 ريال</td>
-                    <td><strong>مجاناً</strong></td>
+                    <td><strong>التكلفة (سنة أولى)</strong></td>
+                    <td>13,823 ريال</td>
+                    <td class="winner">0 ريال</td>
+                    <td>~15,000 ريال</td>
+                    <td>~12,000 ريال</td>
                 </tr>
                 <tr>
-                    <td>📊 منصة إدارة رقمية (اشتراك سنوي)</td>
-                    <td>20</td>
-                    <td>0 ريال</td>
-                    <td><strong>مجاناً</strong></td>
+                    <td><strong>ربط مع "وصل"</strong></td>
+                    <td class="highlight">✅</td>
+                    <td>❌</td>
+                    <td class="highlight">✅</td>
+                    <td class="highlight">✅</td>
                 </tr>
                 <tr>
-                    <td>⛽ نظام محفظة وقود رقمية</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td><span class="tag green">حسب الاستهلاك الفعلي</span></td>
+                    <td><strong>حساسات حرارة ورطوبة</strong></td>
+                    <td>✅ (اختياري)</td>
+                    <td>❌</td>
+                    <td class="highlight">✅ (متميز)</td>
+                    <td>❌</td>
                 </tr>
                 <tr>
-                    <td>🛞 خدمات إطارات وبطاريات</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td><span class="tag green">بأسعار موحدة</span></td>
+                    <td><strong>حساسات وزن</strong></td>
+                    <td>❌</td>
+                    <td>❌</td>
+                    <td class="highlight">✅</td>
+                    <td class="highlight">✅</td>
                 </tr>
                 <tr>
-                    <td>🆘 خدمات سطحات وصيانة</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td><span class="tag green">أسعار مميزة</span></td>
+                    <td><strong>توفير الوقود والصيانة</strong></td>
+                    <td>غير مباشر</td>
+                    <td class="winner">✅ 20% مباشر</td>
+                    <td>غير مباشر</td>
+                    <td>غير مباشر</td>
                 </tr>
-                <tr class="total-row">
-                    <td colspan="3" style="text-align: left;">💰 <strong>رسوم التأسيس</strong></td>
-                    <td><strong style="font-size: 1.1rem; color: #16a34a;">0 ريال</strong></td>
+                <tr>
+                    <td><strong>شبكة مراكز الخدمة</strong></td>
+                    <td>14 فرع</td>
+                    <td class="winner">5,000+ مركز</td>
+                    <td>محدود</td>
+                    <td>محدود</td>
                 </tr>
-                <tr class="total-row" style="background: #dbeafe;">
-                    <td colspan="3" style="text-align: left;">📈 <strong>التوفير المتوقع سنوياً</strong></td>
-                    <td><strong style="font-size: 1.2rem; color: #2563eb;">أكثر من 20%</strong></td>
+                <tr>
+                    <td><strong>منع التلاعب بالفواتير</strong></td>
+                    <td>❌</td>
+                    <td class="winner">✅</td>
+                    <td>❌</td>
+                    <td>❌</td>
+                </tr>
+                <tr>
+                    <td><strong>ضمان الأجهزة</strong></td>
+                    <td class="highlight">24 شهر</td>
+                    <td>N/A</td>
+                    <td class="highlight">24 شهر</td>
+                    <td class="highlight">24 شهر</td>
+                </tr>
+                <tr>
+                    <td><strong>تدريب مجاني</strong></td>
+                    <td class="highlight">✅</td>
+                    <td class="highlight">✅</td>
+                    <td>✅</td>
+                    <td>❌</td>
                 </tr>
             </tbody>
         </table>
+    </div>
 
-        <div style="margin-top: 12px; background: #fef3c7; padding: 12px; border-radius: 10px; text-align: center; font-weight: 700; font-size: 0.85rem; color: #92400e; border-right: 4px solid #f59e0b;">
-            💡 <strong>ملاحظة:</strong> لا توجد رسوم تأسيس أو أجهزة! الدفع فقط حسب الاستهلاك الفعلي للوقود والخدمات.
+    <!-- ===== التوصية النهائية ===== -->
+    <div class="recommendation">
+        <h2>🏆 التوصية النهائية للإدارة</h2>
+
+        <div class="rec-grid">
+            <div class="rec-item">
+                <div class="title">✅ الخيار التشغيلي الإلزامي</div>
+                <div class="desc">
+                    <strong style="color: #fcd34d;">فليت بلس (كفرات بلس)</strong> 
+                    <span style="color: #94a3b8;">- منصة إدارة الوقود والصيانة</span><br>
+                    <span style="color: #86efac;">• لا رسوم تأسيس (0 ريال)</span><br>
+                    <span style="color: #86efac;">• توفير مباشر 20% من الميزانية</span><br>
+                    <span style="color: #86efac;">• 5,000+ مركز خدمة</span><br>
+                    <span style="color: #86efac;">• منع تلاعب السائقين بالفواتير</span>
+                </div>
+            </div>
+
+            <div class="rec-item">
+                <div class="title">📡 الخيار الحكومي - التتبع والربط</div>
+                <div class="desc">
+                    <strong style="color: #fcd34d;">تطور العالمية (TMT GPS)</strong> 
+                    <span style="color: #94a3b8;">- نظام تتبع وربط حكومي</span><br>
+                    <span style="color: #86efac;">• أقل سعر بين منافسي التتبع (13,823 ريال)</span><br>
+                    <span style="color: #86efac;">• ربط مع منصة "وصل"</span><br>
+                    <span style="color: #86efac;">• ضمان 24 شهر و صيانة مجانية</span><br>
+                    <span style="color: #86efac;">• إمكانية إضافة حساسات حرارة للشحنات</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="final-verdict">
+            <p>
+                🎯 <span class="big">الخلاصة:</span> 
+                نوصي باعتماد <strong style="color: #fcd34d;">فليت بلس</strong> كشريك تشغيلي أساسي 
+                <span style="color: #94a3b8;">|</span> 
+                والتفاوض مع <strong style="color: #fcd34d;">تطور العالمية</strong> للحصول على نظام تتبع وربط حكومي 
+                <span style="color: #94a3b8;">مع إضافة حساسات الحرارة لشاحنات التبريد</span>
+            </p>
+            <p style="margin-top: 8px; color: #94a3b8; font-size: 0.85rem;">
+                ⚡ الجمع بين النظامين يحقق: <strong style="color: #86efac;">امتثال حكومي + توفير 20% + حماية من التلاعب + مراقبة حرارة الشحنات</strong>
+            </p>
         </div>
     </div>
 
-    <!-- ===== نسبة التوفير ===== -->
-    <div class="content-grid" style="margin-bottom: 20px;">
-        <div class="card">
-            <h3><span class="emoji">📉</span> نسبة التوفير المتوقعة</h3>
-
-            <div class="rate-bar-wrap">
-                <span style="font-weight: 700; font-size: 0.8rem; min-width: 70px;">الوقود</span>
-                <div class="rate-bar-track"><div class="rate-bar-fill high" style="width: 25%;"></div></div>
-                <span class="rate-text">25%</span>
-            </div>
-
-            <div class="rate-bar-wrap">
-                <span style="font-weight: 700; font-size: 0.8rem; min-width: 70px;">الصيانة</span>
-                <div class="rate-bar-track"><div class="rate-bar-fill high" style="width: 20%;"></div></div>
-                <span class="rate-text">20%</span>
-            </div>
-
-            <div class="rate-bar-wrap">
-                <span style="font-weight: 700; font-size: 0.8rem; min-width: 70px;">الإطارات</span>
-                <div class="rate-bar-track"><div class="rate-bar-fill medium" style="width: 15%;"></div></div>
-                <span class="rate-text">15%</span>
-            </div>
-
-            <div class="rate-bar-wrap">
-                <span style="font-weight: 700; font-size: 0.8rem; min-width: 70px;">الزيوت</span>
-                <div class="rate-bar-track"><div class="rate-bar-fill medium" style="width: 18%;"></div></div>
-                <span class="rate-text">18%</span>
-            </div>
-
-            <div class="rate-bar-wrap" style="margin-top: 8px; border-top: 2px solid #f1f5f9; padding-top: 10px;">
-                <span style="font-weight: 900; font-size: 0.9rem; min-width: 70px; color: #16a34a;">✅ الإجمالي</span>
-                <div class="rate-bar-track"><div class="rate-bar-fill full" style="width: 20%;"></div></div>
-                <span class="rate-text" style="font-size: 1rem; color: #16a34a;">20%+</span>
-            </div>
-        </div>
-
-        <div class="card">
-            <h3><span class="emoji">🎯</span> أهداف النظام</h3>
-
-            <ul class="feature-list">
-                <li><span class="icon">🎯</span> ترشيد استهلاك الوقود والصيانة</li>
-                <li><span class="icon">🛡️</span> القضاء على التلاعب بالفواتير</li>
-                <li><span class="icon">📊</span> رقابة لحظية على كل مركبة</li>
-                <li><span class="icon">💳</span> محفظة رقمية لكل سائق</li>
-                <li><span class="icon">📈</span> تقارير دقيقة للقرارات المالية</li>
-                <li><span class="icon">🤝</span> شراكة استراتيجية مع أكبر المحطات</li>
-            </ul>
-
-            <div class="recommend-box" style="margin-top: 14px;">
-                <h4>📌 التوصية الإدارية</h4>
-                <p>نوصي باعتماد منصة فليت بلس كشريك تشغيلي رئيسي، مع تفعيل النظام لجميع مركبات التوزيع فوراً لضبط الفواتير وتحقيق وفر مباشر في الميزانية التشغيلية.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- ===== التوصيات النهائية ===== -->
-    <div class="card" style="margin-bottom: 20px; border-right: 5px solid #2563eb;">
-        <h3><span class="emoji">📋</span> الخلاصة النهائية</h3>
-
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-            <div style="background: #f0fdf4; padding: 14px; border-radius: 12px; border-right: 4px solid #22c55e;">
-                <div style="font-weight: 900; color: #166534; font-size: 0.9rem;">✅ المزايا</div>
-                <ul style="list-style: none; padding: 0; margin-top: 6px; font-size: 0.8rem; font-weight: 600; color: #14532d;">
-                    <li>✓ لا توجد رسوم تأسيس</li>
-                    <li>✓ دفع حسب الاستهلاك الفعلي</li>
-                    <li>✓ توفير 20%+ من الميزانية</li>
-                    <li>✓ شبكة 5,000+ مركز</li>
-                </ul>
-            </div>
-            <div style="background: #eff6ff; padding: 14px; border-radius: 12px; border-right: 4px solid #3b82f6;">
-                <div style="font-weight: 900; color: #1e40af; font-size: 0.9rem;">📊 العائد المتوقع</div>
-                <ul style="list-style: none; padding: 0; margin-top: 6px; font-size: 0.8rem; font-weight: 600; color: #1e3a5f;">
-                    <li>📉 خفض هدر الوقود</li>
-                    <li>📊 تقارير شفافة</li>
-                    <li>🛡️ منع التلاعب</li>
-                    <li>⏱️ توفير وقت الإدارة</li>
-                </ul>
-            </div>
-        </div>
-
-        <div style="margin-top: 14px; background: linear-gradient(135deg, #0c4a6e, #0f172a); padding: 16px 20px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
-            <span style="color: #ffffff; font-weight: 700; font-size: 0.95rem;">📞 للتواصل والاستفسارات</span>
-            <span style="color: #67e8f9; font-weight: 900; font-size: 1.3rem;">920031170</span>
-            <span style="color: #94a3b8; font-size: 0.75rem;">info@fleetplus.ai</span>
-        </div>
-    </div>
-
-    <!-- ===== FOOTER ===== -->
+    <!-- ===== الفوتر ===== -->
     <div class="footer">
-        <div>
-            <div style="color: #ffffff; font-weight: 800; font-size: 1.1rem;">⚡ فليت بلس</div>
-            <div class="contact">نظام إدارة أسطول ذكي | FleetPlus</div>
-        </div>
-        <div>
-            <div class="phone">📞 920031170</div>
-            <div class="contact"><strong>www.fleetplus.ai</strong></div>
-        </div>
-    </div>
-
-    <div class="watermark">
-        © 2026 فليت بلس - جميع الحقوق محفوظة | تم إعداد هذا العرض لتقييم إدارة شركة مصنع دار السلال للحلويات
+        تم إعداد هذا التقرير لتقييم عروض إدارة الأسطول المقدمة لشركة مصنع دار السلال للحلويات المحدودة
+        <br>
+        © 2026 - جميع الحقوق محفوظة
     </div>
 
 </div>
